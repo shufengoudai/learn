@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父传子子传父</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!--子组件-->
+<template id="tem">
+    <div>
+        <button v-for="item in ecategories" @click="btnClick(item)">{{item.name}}</button>
+    </div>
+</template>
+
+<!--父组件-->
+<div id="vueCom4">
+    <cpn :ecategories="categories" @itemclick="comclick"></cpn>
+</div>
+
+<script>
+    const extC = {
+        template: `#tem`,
+        props: {
+            ecategories: {
+                type: Array,
+                default(){
+                    return {}
+                }
+            }
+        },
+        data(){
+            return {
+                counter: 0
+            }
+        },
+        methods: {
+            btnClick(item){
+                this.$emit("itemclick",item)
+            }
+        }
+    }
+
+    // const comC = Vue.component("cpn",extC);
+
+    const vueCom4 = new Vue({
+        el: "#vueCom4",
+        data: {
+            categories: [
+                {id:0,name:"精品数码",price:2000},
+                {id:1,name:"家电下乡",price:800},
+                {id:2,name:"电脑办公",price:3000},
+                {id:3,name:"品质家居",price:1200}
+            ]
+        },
+        components: {
+            cpn: extC
+        },
+        methods: {
+            comclick(item){
+                console.log(item);
+            }
+        }
+    });
+</script>
+</body>
+</html>

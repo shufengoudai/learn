@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父子组件</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id="vueCom1">
+    <cpn></cpn>
+    <cpn></cpn>
+</div>
+
+<script>
+    const extC2 = Vue.extend({
+        template: `
+            <div>
+                <h2>这是标题2</h2>
+                <p>这是内容</p>
+            </div>`
+    })
+
+    const extC = Vue.extend({
+        template: `
+            <div>
+                <h2>这是标题1</h2>
+                <p>这是内容</p>
+                <cpn2></cpn2>
+            </div>
+`,
+        components: {
+            cpn2: extC2
+        }
+    });
+
+
+    // const comC = Vue.component("cpn",extC);
+
+    const vueCom1 = new Vue({
+        el: "#vueCom1",
+        data: {},
+        components: {
+            cpn: extC
+        }
+    });
+</script>
+</body>
+</html>

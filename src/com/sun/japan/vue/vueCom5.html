@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父子组件的双向绑定</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!--子组件-->
+<template id="tem">
+    <div>
+        <button v-for="item in ecategories" @click="btnClick(item)">{{item.name}}</button>
+        <hr/>
+        <input type="number" :value="dnumber1" @input="enumber1input1"><br/>
+        {{enumber1}}<br/>
+        {{dnumber1}}<br/>
+        <input type="number" :value="dnumber2" @input="enumber2input2"><br/>
+        {{enumber2}}<br/>
+        {{dnumber2}}
+    </div>
+</template>
+
+<!--父组件-->
+<div id="vueCom5">
+    <cpn :ecategories="categories" @itemclick="comclick" :enumber1="number1" :enumber2="number2" @input1="getnumber1" @input2="getnumber2"></cpn>
+</div>
+
+<script>
+    const extC = {
+        template: `#tem`,
+        props: {
+            ecategories: {
+                type: Array,
+                default(){
+                    return {}
+                }
+            },
+            enumber1: {
+                type: Number,
+                default: 123
+            },
+            enumber2: {
+                type: Number,
+                default: 321
+            }
+        },
+        data(){
+            return {
+                counter: 0,
+                dnumber1: this.enumber1,
+                dnumber2: this.enumber2
+            }
+        },
+        methods: {
+            btnClick(item){
+                this.$emit("itemclick",item)
+            },
+            enumber1input1(event){
+                this.dnumber1 = event.target.value
+                this.$emit("input1",this.dnumber1)
+            },
+            enumber2input2(event){
+                this.dnumber2 = event.target.value
+                this.$emit("input2",this.dnumber2)
+            }
+        }
+    }
+
+    // const comC = Vue.component("cpn",extC);
+
+    const vueCom5 = new Vue({
+        el: "#vueCom5",
+        data: {
+            categories: [
+                {id:0,name:"精品数码",price:2000},
+                {id:1,name:"家电下乡",price:800},
+                {id:2,name:"电脑办公",price:3000},
+                {id:3,name:"品质家居",price:1200}
+            ],
+            number1: 0,
+            number2: 1
+        },
+        components: {
+            cpn: extC
+        },
+        methods: {
+            comclick(item){
+                console.log(item);
+            },
+            getnumber1(number){
+                this.number1 = parseInt(number)
+            },
+            getnumber2(number){
+                this.number2 = parseInt(number)
+            }
+        }
+    });
+</script>
+</body>
+</html>

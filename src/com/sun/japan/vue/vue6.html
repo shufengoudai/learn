@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>利用v-model进行多选</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id="vue6">
+    <input type="checkbox" id="basketball" value="篮球" v-model="hobbies">篮球
+    <input type="checkbox" id="volleyball" value="排球" v-model="hobbies">排球
+    <input type="checkbox" id="football" value="足球" v-model="hobbies">足球
+    <input type="checkbox" id="tableTennis" value="乒乓球" v-model="hobbies">乒乓球
+    <h2>您热爱的运动是：{{hobbies}}</h2>
+</div>
+
+<script>
+    const vue6 = new Vue({
+        el: "#vue6",
+        data: {
+            hobbies: []
+        }
+    })
+</script>
+</body>
+</html>

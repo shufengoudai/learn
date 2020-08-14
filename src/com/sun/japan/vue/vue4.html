@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对固定数量的书进行价格计算</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id="cla" :class="classObj"></div>
+
+<div id="vue2">
+    <p>书的总价格：{{totalPrice}}</p>
+</div>
+<script>
+    var vue1 = new Vue({
+        el: "#cla",
+        data: {
+            classObj: {
+                aaa: true,
+                bbb: false
+            }
+        }
+    })
+
+    var vue2 = new Vue({
+        el: "#vue2",
+        data: {
+            books: [
+                {id:1,name:"java从入门到入坟",price:100},
+                {id:2,name:"c++从入门到入坟",price:110},
+                {id:3,name:"python从入门到入坟",price:120}
+            ]
+        },
+        computed:{
+            totalPrice: function () {
+                let result = 0
+                for (let i = 0;i < this.books.length;i++){
+                    result += this.books[i].price
+                }
+                return result
+            }
+        }
+    })
+</script>
+</body>
+</html>

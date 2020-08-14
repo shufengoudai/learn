@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下拉框多选和自动渲染的数据进行多选</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id="vue7">
+    <select name="sele" v-model="fruits" multiple>
+        <option value="苹果">苹果</option>
+        <option value="香蕉">香蕉</option>
+        <option value="菠萝">菠萝</option>
+        <option value="橘子">橘子</option>
+    </select>
+    <h2>您喜欢的水果是：{{fruits}}</h2>
+
+    <label v-for="item in originHobbies" :for="item">
+        <input type="checkbox" :value="item" :id="item" v-model="hobbies">{{item}}
+    </label>
+    <h2>您喜欢的运动有：{{hobbies}}</h2>
+</div>
+
+<script>
+    const vue7 = new Vue({
+        el: "#vue7",
+        data: {
+            fruits: [],
+            hobbies: [],
+            originHobbies: ["篮球","足球","乒乓球","排球","桌球","游泳"]
+        }
+    })
+</script>
+</body>
+</html>

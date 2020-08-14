@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>为什么data必须是函数</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<template id="tem">
+    <div>
+        <h2>目前计数：{{counter}}</h2>
+        <button @click="increment">+</button>
+        <button @click="decrement" :disabled="this.counter <= 0">-</button>
+    </div>
+</template>
+
+<div id="vueCom3">
+    <cpn></cpn>
+</div>
+
+<script>
+    const extC = {
+        template: `#tem`,
+        data(){
+            return {
+                counter: 0
+            }
+        },
+        methods: {
+            increment() {
+                this.counter++
+            },
+            decrement(){
+                this.counter--
+            }
+        }
+    }
+
+    // const comC = Vue.component("cpn",extC);
+
+    const vueCom3 = new Vue({
+        el: "#vueCom3",
+        data: {},
+        components: {
+            cpn: extC
+        }
+    });
+</script>
+</body>
+</html>

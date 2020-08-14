@@ -1,0 +1,78 @@
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id="app">
+    <p>{{message}}</p>
+</div>
+<div id="app2">
+    <span v-bind:title="message">把鼠标停在这里</span>
+</div>
+<div id="app3">
+    <span v-if = "seen">hahahha</span>
+</div>
+<div id="app4">
+    <ul>
+        <li v-for="item in items">{{item.text}}</li>
+    </ul>
+</div>
+<div id="app5">
+    <p>{{message}}</p>
+    <button @click="reverseMessage">点击反转上面字段</button>
+</div>
+<div id="app6">
+    <p>{{message}}</p>
+    <input v-model="message"/>
+</div>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            message: "eeeeeeeee"
+        }
+    })
+    var app2 = new Vue({
+        el: "#app2",
+        data: {
+            message: "hahhahahahaha"
+        }
+    })
+    var app3 = new Vue({
+        el: "#app3",
+        data: {
+            seen: true
+        }
+    })
+    var app4 = new Vue({
+        el: "#app4",
+        data: {
+            items: [
+                {text: "aaaaaaaaaa"},
+                {text: "bbbbbbbbbb"},
+                {text: "cccccccccc"}
+            ]
+        }
+    })
+    var app5 = new Vue({
+        el: "#app5",
+        data: {
+            message: "hello vue!"
+        },
+        methods: {
+            reverseMessage: function () {
+                this.message = this.message.split("").reverse().join("");
+            }
+        }
+    })
+
+    var app6 = new Vue({
+        el: "#app6",
+        data: {
+            message: "hahahahha"
+        }
+    })
+</script>
+</body>
+</html>

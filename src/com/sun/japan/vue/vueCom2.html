@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件模板分离</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/x-template" id="tem1">
+    <div>
+        <h2>这是标题1</h2>
+        <p>这是内容1</p>
+        <cpn2></cpn2>
+    </div>
+</script>
+<!--<script type="text/x-template" id="tem2">-->
+<!--    <div>-->
+<!--        <h2>这是标题2</h2>-->
+<!--        <p>这是内容2</p>-->
+<!--    </div>-->
+<!--</script>-->
+<template id="tem2">
+    <div>
+        <h2>这是标题2</h2>
+        <p>这是内容2</p>
+    </div>
+</template>
+<div id="vueCom2">
+    <cpn></cpn>
+</div>
+
+<script>
+    const extC2 = Vue.extend({
+        template: `#tem2`
+    })
+
+    const extC = Vue.extend({
+        template: `#tem1`,
+        components: {
+            cpn2: extC2
+        }
+    });
+
+    const comC = Vue.component("cpn",extC);
+
+    const vueCom2 = new Vue({
+        el: "#vueCom2",
+        data: {},
+        // components: {
+        //     cpn: extC
+        // }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>slot</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<template id="extC">
+    <div>
+        <slot :data="pLanguage">
+            <ul>
+                <li v-for="item in pLanguage">{{item}}</li>
+            </ul>
+        </slot>
+    </div>
+</template>
+
+<div id="vueCom6">
+    <cpn></cpn>
+    <cpn>
+        <template slot-scope="slot">
+<!--            <span>{{slot.data.join(" - ")}}</span>-->
+            <b v-for="item in slot.data">{{item}}<br/></b>
+        </template>
+    </cpn>
+</div>
+
+<script>
+    const extC = {
+        template: `#extC`,
+        data(){
+            return {
+                pLanguage: ["c++","java","golang","c#","python","perl"]
+            }
+        }
+    }
+
+
+    // const comC = Vue.component("cpn",extC);
+
+    const vueCom6 = new Vue({
+        el: "#vueCom6",
+        data: {},
+        components: {
+            cpn: extC
+        }
+    });
+</script>
+</body>
+</html>

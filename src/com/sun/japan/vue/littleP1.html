@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对客户的订单进行价格计算</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id="littleP1">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>书籍名称</th>
+                <th>出版日期</th>
+                <th>价格</th>
+                <th>购买数量</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(book,index) in books">
+                <td> {{book.id}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.pubDate}}</td>
+                <td>{{book.price | showFinalPrice}}</td>
+                <td><button @click="decrement(index)" :disabled="book.orderNum <= 0">-</button>
+                    {{book.orderNum}}
+                    <button @click="increment(index)">+</button></td>
+                <td><button @click="removeOne(index)">移除</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <h2>总价格：{{totalPrice | showFinalPrice}}</h2>
+    </div>
+</div>
+
+<script>
+    var littleP1 = new Vue({
+        el: "#littleP1",
+        data: {
+            books: [
+                {id:0,name:"《java从入门到入坟》",pubDate:2006-1,price:100,orderNum:1},
+                {id:1,name:"《c++从入门到入坟》",pubDate:2006-2,price:110,orderNum:1},
+                {id:2,name:"《python从入门到入坟》",pubDate:2006-3,price:120,orderNum:1},
+                {id:3,name:"《perl从入门到入坟》",pubDate:2006-4,price:130,orderNum:1}
+            ]
+        },
+        methods: {
+            increment(index){
+                this.books[index].orderNum++
+            },
+            decrement(index){
+                this.books[index].orderNum--
+            },
+            removeOne(index){
+                this.books.splice(index,1)
+            }
+        },
+        filters: {
+            showFinalPrice(price){
+                return "￥" + price.toFixed(2)
+            }
+        },
+        computed: {
+            totalPrice: function(){
+                // let totalPrice = 0;
+                // for (let i = 0;i < this.books.length;i++){
+                //     totalPrice += this.books[i].orderNum * this.books[i].price
+                // }
+                // return totalPrice
+                // return this.books.reduce(function (preValue,book) {
+                //     return preValue + book.price * book.orderNum
+                // },0)
+                return this.books.reduce((previousValue,book) => previousValue+book.price*book.orderNum,0)
+            }
+        }
+    })
+</script>
+</body>
+</html>
